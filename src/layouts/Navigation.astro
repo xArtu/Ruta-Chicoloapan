@@ -1,0 +1,46 @@
+---
+import { supabase } from "../lib/supabase";
+
+// Verificar si el usuario está autenticado
+const { data: session } = await supabase.auth.getSession();
+const isLoggedIn = !!session?.session?.user;
+---
+<nav class="flex justify-evenly bg-black py-8 px-4 text-white">
+  <div>
+    <span class="font-bold underline decoration-4 decoration-red-500">
+      <a href="/">RUTA CHICOLOAPAN</a>
+    </span>
+  </div>
+  <ul class="flex justify-between gap-8 font-bold">
+    <li class="hover:underline hover:decoration-red-500 hover:decoration-2 hover:cursor-pointer">
+      <a href="nosotros">Nosotros</a>
+    </li>
+    <li class="hover:underline hover:decoration-red-500 hover:decoration-2 hover:cursor-pointer">
+      <a href="galeria">Galería</a>
+    </li>
+    <li class="hover:underline hover:decoration-red-500 hover:decoration-2 hover:cursor-pointer">
+      <a href="rodadas">Próximas rodadas</a>
+    </li>
+    <li class="hover:underline hover:decoration-red-500 hover:decoration-2 hover:cursor-pointer">
+      Contáctanos
+    </li>
+  </ul>
+  <div class="flex gap-8">
+    <!-- Verificar si el usuario está autenticado -->
+    {isLoggedIn ? (
+      <>
+        <a href="/dashboard" class="font-bold hover:underline hover:decoration-red-500 hover:decoration-2 hover:cursor-pointer">Mi perfil</a>
+        <form action="/api/auth/signout" method="post">
+          <button type="submit" class="font-bold bg-red-500 px-2 py-1 rounded-lg hover:bg-red-700 hover:cursor-pointer">
+            Cerrar sesión
+          </button>
+        </form>
+      </>
+    ) : (
+      <>
+        <a href="register" class="font-bold hover:underline hover:decoration-red-500 hover:decoration-2 hover:cursor-pointer">Registrarse</a>
+        <a href="signin" class="font-bold bg-red-500 px-2 py-1 rounded-lg hover:bg-red-700 hover:cursor-pointer">Iniciar sesión</a>
+      </>
+    )}
+  </div>
+</nav>

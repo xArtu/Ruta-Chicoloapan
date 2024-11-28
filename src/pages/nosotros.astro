@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../layouts/Navigation.astro';
+import About from '../layouts/About.astro';
+import Footer from '../layouts/Footer.astro'
+import { Image } from "astro:assets";
+
+// Importar las fotos de los integrantes
+import founderImg from "../img/placeholder.jpg";
+import cofounder1Img from "../img/placeholder.jpg";
+import cofounder2Img from "../img/placeholder.jpg";
+import cofounder3Img from "../img/placeholder.jpg";
+import cofounder4Img from "../img/placeholder.jpg";
+
+// Datos de los integrantes
+const teamMembers = [
+  {
+    name: "Juan Pérez",
+    role: "Fundador",
+    image: founderImg,
+    description: "Juan fundó Ruta Chicoloapan con la visión de mejorar la conectividad y bienestar de los ciclistas locales, liderando el crecimiento de la comunidad desde sus inicios."
+  },
+  {
+    name: "Ana González",
+    role: "Cofundadora",
+    image: cofounder1Img,
+    description: "Ana ha sido una gran inspiración para la expansión de Ruta Chicoloapan, enfocándose en la creación de eventos y proyectos que fortalezcan la unión entre los miembros."
+  },
+  {
+    name: "Carlos Ramírez",
+    role: "Cofundador",
+    image: cofounder2Img,
+    description: "Carlos se ha encargado de la parte logística, gestionando rutas y asegurándose de que cada salida sea una experiencia segura y divertida para todos."
+  },
+  {
+    name: "María López",
+    role: "Cofundadora",
+    image: cofounder3Img,
+    description: "María ha jugado un papel clave en el diseño y desarrollo de la marca Ruta Chicoloapan, así como en la promoción de la cultura ciclista en la comunidad."
+  },
+  {
+    name: "Pedro Martínez",
+    role: "Cofundador",
+    image: cofounder4Img,
+    description: "Pedro ha sido fundamental en la parte de comunicación y redes sociales, ayudando a expandir la presencia de Ruta Chicoloapan más allá de las fronteras locales."
+  }
+];
+---
+
+<Layout title="Ruta Chicoloapan">
+	<Navigation />
+	<main class="w-[1080px] my-4 mx-auto">
+		<About />
+	</main>
+	<section class="w-[1080px] my-4 mx-auto">
+		<article>
+			<h1 class="text-3xl font-bold text-center mb-6">Integrantes</h1>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{teamMembers.map((member) => (
+					<div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-lg">
+						<Image
+							src={member.image}
+							alt={member.name}
+							class="w-32 h-32 object-cover rounded-full mb-4"
+							loading="lazy"
+							format="webp"
+						/>
+						<h2 class="text-xl font-semibold">{member.name}</h2>
+						<p class={`text-pretty font-bold text-sm ${member.role === "Fundador" ? "text-red-500" : "text-gray-500"}`}>
+							{member.role}
+						</p>
+						<p class="text-base mt-2">{member.description}</p>
+					</div>
+				))}
+			</div>
+		</article>
+	</section>
+    <Footer/>
+</Layout>

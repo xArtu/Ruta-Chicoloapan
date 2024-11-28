@@ -1,0 +1,25 @@
+[
+    {
+      "fecha": "2024-11-17",
+      "lugar": "Teotihuacán",
+      "ubicación": "https://maps.app.goo.gl/fM1syJPFeGsWH3Gw7",
+      "hora": "7:30 am",
+      "imagen": "src/img/img-01.jpg"
+    },
+    {
+      "fecha": "2024-11-10",
+      "lugar": "Ejido de Coatepec",
+      "ubicación": "https://maps.app.goo.gl/KXxSjsdbQKcLi2cR9",
+      "hora": "7:00 am",
+      "imagen": "src/img/img-02.jpg"
+    },
+    {
+      "fecha": "2024-12-20",
+      "lugar": "Centro ceremonial Tlaloc",
+      "ubicación": "https://maps.app.goo.gl/KXxSjsdbQKcLi2cR9",
+      "hora": "6:00 am",
+      "imagen": "src/img/img-06.jpg"
+    }
+  ]
+  
+  

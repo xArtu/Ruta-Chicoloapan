@@ -1,0 +1,68 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../layouts/Navigation.astro";
+import Footer from "../layouts/Footer.astro";
+import { supabase } from "../lib/supabase";
+
+const { cookies, redirect } = Astro;
+
+// Obtén los tokens de acceso
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+// Si no hay tokens, redirige al inicio de sesión
+if (!accessToken || !refreshToken) {
+  return redirect("/signin");
+}
+
+// Restaura la sesión en Supabase
+const { data, error } = await supabase.auth.setSession({
+  refresh_token: refreshToken.value,
+  access_token: accessToken.value,
+});
+
+if (error) {
+  // Borra las cookies y redirige si hay un error al restaurar la sesión
+  cookies.delete("sb-access-token", {
+    path: "/",
+  });
+  cookies.delete("sb-refresh-token", {
+    path: "/",
+  });
+
+  return redirect("/signin");
+}
+
+// Obtén el ID del usuario autenticado
+const userId = data?.user?.id;
+
+if (!userId) {
+  return redirect("/signin");
+}
+
+// Consulta los datos adicionales del usuario desde la tabla Usuarios
+const { data: userData, error: userError } = await supabase
+  .from("Usuarios")
+  .select("nombre")
+  .eq("id", userId)
+  .single();
+
+if (userError || !userData) {
+  return redirect("/signin");
+}
+
+// Obtén el nombre del usuario
+const userName = userData.nombre;
+---
+<Layout title="Panel de Control">
+  <Navigation/>
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md text-center">
+      <h1 class="text-2xl font-bold text-gray-800">Bienvenido, {userName}!</h1>
+      <p class="text-sm text-gray-600 mt-2">
+        Estamos felices de verte aquí.
+      </p>
+    </div>
+  </div>
+  <Footer/>
+</Layout>

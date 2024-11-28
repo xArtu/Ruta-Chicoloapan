@@ -1,0 +1,23 @@
+---
+import Card from "./Card.astro";
+import rodadas from "../../rodadas.json";
+
+const today = new Date();
+
+const futuras = rodadas.filter((evento) => new Date(evento.fecha) > today);
+const pasadas = rodadas.filter((evento) => new Date(evento.fecha) <= today);
+---
+
+<h1 class="my-6 text-center text-4xl font-bold">RODADAS</h1>
+<article class="bg-gray-100 shadow-xl border rounded-xl p-4 text-pretty grid grid-cols-3 gap-2 my-4">
+    <div class="col-span-2">
+        {futuras.map((evento) => (
+            <Card evento={evento} />
+        ))}
+    </div>
+    <div>
+        {pasadas.map((evento) => (
+            <Card evento={evento} />
+        ))}
+    </div>
+</article>

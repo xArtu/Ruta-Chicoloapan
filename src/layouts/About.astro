@@ -1,0 +1,16 @@
+---
+import { Image } from "astro:assets";
+import nosotros from "../img/nosotros.png" 
+---
+
+<article class="bg-gray-100 shadow-xl border rounded-xl p-4 text-pretty my-4">
+    <h2 class="text-2xl font-bold">¿Quiénes somos?</h2>
+    <div class="flex flex-col gap-4 my-4">
+        <p>Somos un grupo de <span class="text-red-500 font-bold">ciclistas apasionados</span> por el deporte, la aventura y el trabajo en equipo. Desde nuestros primeros pedales, nos hemos comprometido a disfrutar del ciclismo y a <span class="font-bold">compartir esa emoción con toda la comunidad</span>.</p>
+        <p>Nuestra <span class="font-bold">misión</span> es fomentar el ciclismo como una forma de <span class="font-bold">vida saludable,</span> promoviendo el respeto por el <span class="font-bold">medio ambiente</span> y la <span class="font-bold">integración social</span>. Queremos ser un punto de encuentro para ciclistas de nuestra comunidad y alrededores, conociendo <span class="font-bold">nuevos lugares</span> y ganando <span class="font-bold">experiencias inolvidables</span>.</p>
+        <p>Nos guiamos por los valores de la <span class="font-bold">solidaridad</span>, la <span class="font-bold">constancia</span> y el <span class="font-bold">respeto</span>. Creemos en el trabajo en equipo, en la superación personal y en <span class="font-bold text-green-700">disfrutar cada kilómetro recorrido</span>.</p>
+    </div>
+    <div class="border">
+        <Image src={nosotros} alt="Imagen del grupo Ruta Chicoloapan" height="400" width="1080"/>
+    </div>
+</article>

@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../layouts/Navigation.astro';
+import { Image } from "astro:assets";
+import Footer from '../layouts/Footer.astro';
+
+// Importar las imágenes
+import img01 from "../img/img-01.jpg";
+import img02 from "../img/img-02.jpg";
+import img03 from "../img/img-03.jpg";
+import img04 from "../img/img-04.jpg";
+import img05 from "../img/img-05.jpg";
+import img06 from "../img/img-06.jpg";
+import img07 from "../img/img-07.jpg";
+import img08 from "../img/img-08.jpg";
+import img09 from "../img/img-09.jpg";
+
+// Arreglo con las imágenes
+const images = [img01, img02, img03, img04, img05, img06, img07, img08, img09];
+---
+
+<Layout title="Ruta Chicoloapan">
+	<Navigation/>
+	<main class="w-[1080px] mx-auto my-4">
+		<h1 class="text-2xl font-bold text-center mb-6">Galería de Imágenes</h1>
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+			{images.map((img, index) => (
+				<div class="overflow-hidden rounded-lg shadow-md">
+					<Image 
+						src={img} 
+						alt={`Imagen ${index + 1}`} 
+						class="w-full h-96 object-cover transition-transform duration-300 hover:scale-110" 
+						loading="lazy" 
+						format="webp"
+					/>
+				</div>
+			))}
+		</div>
+	</main>
+	<Footer/>
+</Layout>

@@ -1,0 +1,16 @@
+<form method="POST" action="/api/verify-otp">
+    <label>
+      Correo electrónico:
+      <input type="email" name="email" required />
+    </label>
+    <label>
+      Código OTP:
+      <input type="text" name="otp" required maxlength="6" />
+    </label>
+    <label>
+      Nueva contraseña:
+      <input type="password" name="password" required />
+    </label>
+    <button type="submit">Restablecer contraseña</button>
+  </form>
+  

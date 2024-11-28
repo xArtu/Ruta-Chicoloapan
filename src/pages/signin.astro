@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../layouts/Navigation.astro";
+import Footer from "../layouts/Footer.astro";
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+if (accessToken && refreshToken) {
+  return redirect("/dashboard");
+}
+---
+
+<Layout title="Iniciar sesión">
+  <Navigation/>
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+      <h1 class="text-2xl font-bold text-center text-gray-800">Iniciar sesión</h1>
+      <p class="text-sm text-center text-gray-600 mt-2">
+        ¿Nuevo aquí? 
+        <a href="/register" class="text-red-500 hover:underline">Crea una cuenta</a>
+      </p>
+      <form action="/api/auth/signin" method="post" class="mt-6 space-y-4">
+        <!-- Email Field -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+          <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            class="w-full mt-1 px-4 py-2 border rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 border-gray-300"
+            required
+          />
+        </div>
+        <!-- Password Field -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+          <input 
+            type="password" 
+            name="password" 
+            id="password" 
+            class="w-full mt-1 px-4 py-2 border rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 border-gray-300"
+            required
+          />
+        </div>
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="w-full bg-red-500 text-white font-medium py-2 px-4 rounded-md shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+        >
+          Iniciar sesión
+        </button>
+      </form>
+      <p class="text-sm text-center text-gray-600 mt-4">
+        ¿Olvidaste tu contraseña? 
+        <a href="/forgot-password" class="text-red-500 hover:underline">Restablecer contraseña</a>
+      </p>
+    </div>
+  </div>
+  <Footer/>
+</Layout>
