@@ -4,30 +4,21 @@ import { supabase } from "../../../lib/supabase";
 export const POST: APIRoute = async ({ request }) => {
   const formData = await request.formData();
   const password = formData.get("password")?.toString();
+  const direccion = formData.get("direccion")?.toString();
+  const correo = formData.get("email")?.toString();
+  const email = encodeURI(correo);
+  const resetToken = formData.get("reset_token")?.toString();
 
-  // Acceder a los parámetros de la URL
-  const url = new URL(request.url);
-  const accessToken = url.searchParams.get("access_token");
-
-  if (!password || !accessToken) {
-    return new Response("Faltan datos necesarios.", { status: 400 });
-  }
-
-  // Establecer la sesión temporalmente usando el token de acceso
-  const { error: sessionError } = await supabase.auth.setSession({
-    access_token: accessToken,
-    refresh_token: "",
-  });
-
-  if (sessionError) {
-    return new Response(`Error al establecer la sesión: ${sessionError.message}`, { status: 500 });
-  }
+  const { error, data } = await supabase.auth.exchangeCodeForSession(resetToken);
 
   // Actualizar la contraseña
-  const { data, error } = await supabase.auth.updateUser({ password });
+  const { error: updateError } = await supabase.auth.updateUser({
+      email: email,
+      password: password
+    });
 
-  if (error) {
-    return new Response(`Error al actualizar la contraseña: ${error.message}`, { status: 500 });
+  if (updateError) {
+    return new Response(`Error al actualizar la contraseña: ${updateError.message}`, { status: 500 });
   }
 
   return new Response("Contraseña restaurada exitosamente. Ahora puedes iniciar sesión.", {
